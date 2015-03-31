@@ -21,18 +21,17 @@ export PERL_CPANM_OPT=
 
 if prepare http://www.cpan.org/src/5.0 perl-${PERL_VER}.tar.gz; then
     make clean || true
-    ./Configure -de \
+    ./Configure \
         -Ui_db \
-        -Dprivlib=$PREFIX/lib/perl \
-        -Dsitelib=$PREFIX/lib/perl5 \
         -Dprefix=$PREFIX \
-        -Dperlpath="$PREFIX/bin/perl" \
-        -Dstartperl="#!$PREFIX/bin/perl" \
+        -Dprivlib=.../../lib/perl \
+        -Dsitelib=.../../lib/perl5 \
         -Duserelocatableinc \
-        -Dusethreads -de
+        -Dusethreads -des
     make
     make install
-    touch $WORKDIR/perl-${PERL_VER}.tar.gz.ok
+    cd /
+    rm -rf $WORKDIR
     
     wget --no-check-certificate -O $PREFIX/bin/cpanm cpanmin.us && \
         chmod 755 $PREFIX/bin/cpanm
