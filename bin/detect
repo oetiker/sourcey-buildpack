@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -f "$1/Makefile.PL" ]; then
+    echo Perl
+    exit 0
+fi
+
+exit 1

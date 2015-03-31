@@ -1,0 +1,8 @@
+#!/bin/sh
+BUILD_DIR=$1
+cat <<YAML
+config_vars:
+  SOME_ENV: production
+default_process_types:
+  web: ls
+YAML
