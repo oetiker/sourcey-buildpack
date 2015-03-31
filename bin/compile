@@ -19,7 +19,7 @@ else
 fi
 
 export PATH=$BUILD_PATH/perl-$PERL_VERSION/bin:$PATH
-cpanm .
+cpanm --installdeps .
 perl Makefile.PL
 make
 
