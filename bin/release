@@ -5,5 +5,5 @@ cat <<YAML
 config_vars:
   PATH: /app/perl-5.20.2/bin:/usr/bin:/bin
 default_process_types:
-  web: ./app.pl prefork --listen "http://*:\$PORT"
+  web: env;echo $BUILD_DIR;ls -l;ls /
 YAML
