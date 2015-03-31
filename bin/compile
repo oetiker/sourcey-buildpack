@@ -20,5 +20,7 @@ fi
 
 export PATH=$BUILD_PATH/perl-$PERL_VERSION/bin:$PATH
 
+perl -v
+
 cpanm --notest --installdeps $BUILD_PATH
 
