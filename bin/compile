@@ -9,12 +9,12 @@ mkdir -p $BUILD_PATH $CACHE_PATH
 
 PERL_VERSION=5.20.2
 
-if [ -d $CACHE_PATH/perl-$PERL_VERSION ]; then
+if [ -d $CACHE_PATH/perl$PERL_VERSION ]; then
    echo "- using perl from cache ($CACHE_PATH)"
    cp --archive $CACHE_PATH/perl$PERL_VERSION $BUILD_PATH
 else 
    echo "- rebuilding perl"
-   `dirname $0`/../lib/language_pack/perl.sh $PERL_VERSION $BUILD_PATH/perl-$PERL_VERSION
+   `dirname $0`/../lib/language_pack/perl.sh $PERL_VERSION $BUILD_PATH/perl$PERL_VERSION
    cp --archive $BUILD_PATH/perl$PERL_VERSION $CACHE_PATH 
 fi
 
