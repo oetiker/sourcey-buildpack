@@ -1,7 +1,8 @@
 #!/bin/sh
 
-BUILD_PATH=`cd $1;pwd`
-CACHE_PATH=`cd $2;pwd`
+
+BUILD_PATH=$1
+CACHE_PATH=$2
 
 mkdir -p $BUILD_PATH $CACHE_PATH
 
@@ -13,7 +14,7 @@ if [ -d $CACHE_PATH/perl-$PERL_VERSION ]; then
    exit 0
 else 
    echo "- rebuilding perl"
-   ../lib/language_pack/perl.sh $PERL_VERSION $BUILD_PATH/perl-$PERL_VERSION
+   `dirname $0`/../lib/language_pack/perl.sh $PERL_VERSION $BUILD_PATH/perl-$PERL_VERSION
    cp --archive $BUILD_PATH/perl-$PERL_VERSION $CACHE_PATH 
    exit 0
 fi
