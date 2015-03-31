@@ -18,7 +18,7 @@ else
    cp --archive $BUILD_PATH/perl$PERL_VERSION $CACHE_PATH 
 fi
 
-export PATH=$BUILD_PATH/perl-$PERL_VERSION/bin:$PATH
+export PATH=$BUILD_PATH/perl$PERL_VERSION/bin:$PATH
 
 perl -v
 
