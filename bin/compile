@@ -18,7 +18,7 @@ else
    cp --archive $BUILD_PATH/perl-$PERL_VERSION $CACHE_PATH 
 fi
 
-export PATH=$BUILD_PATH/perl-$PERL_VERSIO/bin
+export PATH=$BUILD_PATH/perl-$PERL_VERSION/bin
 cpanm .
 perl Makefile.PL
 make
