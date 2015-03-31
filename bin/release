@@ -3,7 +3,7 @@ BUILD_DIR=$1
 cat <<YAML
 ---
 config_vars:
-  PATH: $BUILD_DIR/perl-5.20.1/bin:/usr/bin:/bin
+  PATH: $BUILD_DIR/perl-5.20.2/bin:/usr/bin:/bin
 default_process_types:
   web: ./app.pl prefork --listen "http://*:\$PORT"
 YAML
