@@ -28,7 +28,7 @@ if prepare http://www.cpan.org/src/5.0 perl-${PERL_VER}.tar.gz; then
         -Dprefix=$PREFIX \
         -Dperlpath="$PREFIX/bin/perl" \
         -Dstartperl="#!$PREFIX/bin/perl" \
-        -Duserelocatableinc
+        -Duserelocatableinc \
         -Dusethreads -de
     make
     make install
