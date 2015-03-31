@@ -4,7 +4,7 @@ BUILD_DIR=$1
 cat <<YAML
 ---
 config_vars:
-  TEST: env/$HOME
+  TEST: env/\$HOME
 default_process_types:
-  web: $HOME/perl-5.20.2/bin/perl app.pl prefork --listen "http://*:\$PORT"
+  web: \$HOME/perl-5.20.2/bin/perl app.pl prefork --listen "http://*:\$PORT"
 YAML
