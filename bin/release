@@ -1,10 +1,10 @@
 #!/bin/sh
 BUILD_DIR=$1
-
+SOURCEY=sourcey
 # Don't be fooled by the examples. The config_vars key gets ignored on cloudfoundry.
 # It was just added to create a semblance of heroku compatibility
 cat <<YAML
 ---
 default_process_types:
-  web: ./run_app.sh
+  web: PATH=\$HOME/$SOURCEY:\$PATH PERL5LIB=\$HOME/$SOURCEY/lib/perl5 ./SourceyStart.sh
 YAML
