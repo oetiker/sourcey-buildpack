@@ -65,7 +65,7 @@ buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 
 ### `buildPerl <version>`
 
-This is how it all got started. How to write a decent web application without Perl. Since most cloudfoundry setups are on Ubuntu lucid (10.04) still, perl is also at 5.10.1. Which is about 10 years out of date.
+This is how it all got started. How to write a decent web application without Perl. Since most cloudfoundry setups are on Ubuntu lucid (10.04) still, perl is also at 5.10.1 which is about 100 years out of date. With this call you get a fresh copy.
 
 ```shell
 buildPerl 5.20.2
