@@ -6,10 +6,13 @@
 PERL_VER=$1
 shift
 
+DESTDIR=$1
+shift
+
 . `dirname $0`/sdbs.inc
 
 if [ x$PREFIX = x ]; then
-   echo $0 install-dir perl-version
+   echo $0 perl-version dst-dir install-dir
    exit 1
 fi
 
@@ -29,10 +32,10 @@ if prepare http://www.cpan.org/src/5.0 perl-${PERL_VER}.tar.gz; then
         -Duserelocatableinc \
         -Dusethreads -des
     make
-    make install
+    make install DESTDIR=$DESTDIR
     cd /
     rm -rf $WORKDIR
     
-    wget --no-check-certificate -O $PREFIX/bin/cpanm cpanmin.us && \
-        chmod 755 $PREFIX/bin/cpanm
+    wget --no-check-certificate -O $DESTDIR$PREFIX/bin/cpanm cpanmin.us && \
+        chmod 755 $DESTDIR$PREFIX/bin/cpanm
 fi

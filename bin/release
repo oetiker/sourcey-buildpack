@@ -1,10 +1,10 @@
 #!/bin/sh
 BUILD_DIR=$1
 
+# Don't be fooled by the examples. The config_vars key gets ignored on cloudfoundry.
+# It was just added to create a semblance of heroku compatibility
 cat <<YAML
 ---
-config_vars:
-  TEST: env/\$HOME
 default_process_types:
-  web: \$HOME/perl-5.20.2/bin/perl app.pl prefork --listen "http://*:\$PORT"
+  web: ./run_app.sh
 YAML
