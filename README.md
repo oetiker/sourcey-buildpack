@@ -37,8 +37,8 @@ For a classic autotools packaged application, your setup instructions might look
 
 ```shell
 wget http://cool-site.com/source.tar.gz
-tar xf source.tar.gz
-cd source
+tar xf tool.tar.gz
+cd tool
 ./configure --prefix=$PREFIX
 make install DESTDIR=$BUILD_DIR
 ```
@@ -60,7 +60,7 @@ Essentially does the same as described in detail above, just simpler. If you wan
 just add them as extra arguments at the end of the function call:
 
 ```shell
-buildAuto http://cool-site.com/source.tar.gz --my-very-cool-option=42 --do-not-read-this
+buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 ```
 
 ### `buildPerl <version>`
