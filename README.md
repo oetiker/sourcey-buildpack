@@ -20,14 +20,20 @@ The Sourcey-buildpack expects to find two special files in your application dire
 
 ## `SourceyBuild.sh`
 
-In this script you install software using the classic autotools approach.
-With just two variables pre-configured for your installation fun:
+In this script your required thirdparty software. You are free to move about the cabin as long
+as the result of your effort ends up in the right location. There are two environment variables
+which help you in this:
 
 `PREFIX` pointing to `/home/vcap/app/sourcey` as this is the place where your compiled software
 will end up at runtime.
 
 `BUILD_DIR` pointing to `/tmp/staged/app` where the cloudfoundry
 droplet build process expects to find the results of your efforts to reside.
+
+At the end of your script all software must be installed in `$BUILD_PATH$PREFIX` and they must be
+setup to work when running from `$PREFIX`.
+
+For a classic autotools packaged application, your setup instructions might look like this:
 
 ```shell
 wget http://cool-site.com/source.tar.gz
@@ -36,7 +42,8 @@ cd source
 ./configure --prefix=$PREFIX
 make install DESTDIR=$BUILD_DIR
 ```
-Sourcey does two things:
+
+When the script has run through, Sourcey does two things:
 
 1. It moves `$BUILD_PATH$PREFIX` up to `$BUILD_PATH`, and thus making sure that at runtime
    your binaries will end up in $PREFIX again.
@@ -45,7 +52,7 @@ Sourcey does two things:
    If you re-deploy the same app again, without changing `SourceyBuild3rdParty.sh`. The content of the `$CACHE_DIR` will be used
    in stead of rebuilding everything.
 
-To make live a bit simpler still, Sourcey provides a bunch of helper functions which simplify the build process.
+To make live a bit simpler still, Sourcey provides a bunch of helper functions:
 
 ### `buildAuto <url> [options]`
 
