@@ -28,7 +28,7 @@ fi
 
 export PATH=$BUILD_PATH/perl-$PERL_VERSION/bin:$PATH
 
-cpanm --notest --installdeps $BUILD_PATH
+cpanm -q --notest --installdeps $BUILD_PATH
 
 cat <<APP > $BUILD_PATH/run_app.sh
 #!/bin/bash
