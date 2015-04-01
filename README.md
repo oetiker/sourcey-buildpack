@@ -12,18 +12,18 @@ in `/home/vcap/app/thirdparty` and even knows that it does so, without the need 
 
 The Sourcey-buildpack expects to find two special files in your application directory:
 
-`SourceyBuild3rdParty.sh` (optional) is used at buildtime to compile all the binaries you need.
+`SourceyBuild.sh` (optional) is used at build-time to compile all the binaries you need.
 
-`SourceyBuildApp.sh` (optional) is used at buildtime of the actual application if this needs any building.
+`SourceyBuildApp.sh` (optional) is used at build-time of the actual application if this needs any building.
 
 `SourceyStart.sh` (mandatory) is used at runtime to launch the application.
 
-## `SourceyBuild3rdParty.sh`
+## `SourceyBuild.sh`
 
 In this script you install software using the classic autotools approach.
 With just two variables pre-configured for your installation fun:
 
-`PREFIX` pointing to `/home/vcap/app/thirdparty` as this is the place where your compiled software
+`PREFIX` pointing to `/home/vcap/app/sourcey` as this is the place where your compiled software
 will end up at runtime.
 
 `BUILD_DIR` pointing to `/tmp/staged/app` where the cloudfoundry
@@ -41,7 +41,7 @@ Sourcey does two things:
 1. It moves `$BUILD_PATH$PREFIX` up to `$BUILD_PATH`, and thus making sure that at runtime
    your binaries will end up in $PREFIX again.
 
-2. It creates a copy of `$BUILD_DIR/thirdparty` in `$CACHE_DIR` and tags it with the md5 sum of your `SourceyBuild3rdParty.sh`.
+2. It creates a copy of `$BUILD_DIR/sourcey` in `$CACHE_DIR` and tags it with the md5 sum of your `SourceyBuild3rdParty.sh`.
    If you re-deploy the same app again, without changing `SourceyBuild3rdParty.sh`. The content of the `$CACHE_DIR` will be used
    in stead of rebuilding everything.
 
@@ -58,7 +58,7 @@ buildAuto http://cool-site.com/source.tar.gz --my-very-cool-option=42 --do-not-r
 
 ### `buildPerl <version>`
 
-This is how it all got started. How to write a decent web application without Perl. Since most cloudfoundry setups are on ubuntu lucid (10.04) still, perl is also at 5.10.1. Which is about 10 years out of date.
+This is how it all got started. How to write a decent web application without Perl. Since most cloudfoundry setups are on Ubuntu lucid (10.04) still, perl is also at 5.10.1. Which is about 10 years out of date.
 
 ```shell
 buildPerl 5.20.2
@@ -67,7 +67,7 @@ buildPerl 5.20.2
 ### `buildPerlModule [any cpanm option]`
 
 This is a wrapper for cpanm which you can use to install extra perl modules. The new modules will get installed into your freshly installed
-perl setup, or if you have not done that, the system perl will be used and the modules will go to `/home/vcap/app/thirdpary/lib/perl5`.
+perl setup, or if you have not done that, the system perl will be used and the modules will go to `/home/vcap/app/sourcey/lib/perl5`.
 Sourcey will take care of setting the `PERL5LIB` variable accordingly.
 
 ## `SourceyBuildApp.sh`
