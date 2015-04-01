@@ -1,7 +1,11 @@
 #!/bin/sh
+BUILD_DIR=$1
 
-if [ -f "$1/Makefile.PL" ]; then
-    echo Perl
+# figure out if we are looking at a Sourcy compatible app
+# only the SourcyStart.sh is mandatory.
+
+if [ -f "$BUILD_DIR/SourceyStart.sh" ]; then
+    echo "Yey we are Sourcey!"
     exit 0
 fi
 
