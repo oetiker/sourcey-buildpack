@@ -12,7 +12,8 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 PREFIX=/home/vap/app/$SOURCEY
 
-source `dirname $0`/../lib/SourceyBuildLib.inc
+MYDIR=$(cd `dirname $0`/..;pwd)
+source $MYDIR/lib/SourceyBuildLib.inc $MYDIR
 
 mkdir -p $BUILD_PATH $CACHE_PATH
 

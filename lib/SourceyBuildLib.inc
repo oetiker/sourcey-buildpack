@@ -15,6 +15,6 @@ export CPPFLAGS="-I$BUILD_DIR$PREFIX/include"
 # find our own perl modules
 export PERL5LIB=$BUILD_DIR$PREFIX/lib/perl5
 
-for fn in $(ls -1 `dirname $0`/*.func); do
+for fn in $(ls -1 $1/lib/*.func); do
     source $fn
 done
