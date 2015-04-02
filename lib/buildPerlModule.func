@@ -1,0 +1,14 @@
+function buildPerlModule () {
+   mkdir -p $DESTDIR$PREFIX/bin
+   if [ ! -x $DESTDIR$PREFIX/bin/cpanm ]; then
+        wget --no-check-certificate -O $DESTDIR$PREFIX/bin/cpanm cpanmin.us
+        chmod 755 $DESTDIR$PREFIX/bin/cpanm
+   fi
+   PERL_CPANM_OPT="--notest"
+   if [ ! -f $DESTDIR$PREFIX/bin/perl ]; then
+        PERL_CPANM_OPT="${PERL_CPANM_OPT} --local-lib-contained $PREFIX"
+   fi
+   PERL_CPANM_OPT=$PERL_CPANM_OPT cpanm "$@"
+}
+
+
