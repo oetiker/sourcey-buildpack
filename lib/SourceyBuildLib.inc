@@ -22,15 +22,14 @@ export PERL5LIB=$BUILD_DIR$PREFIX/lib/perl5
 function progressor () {
    title=$1
    countdown=${2:-0}
-   echo -n "        $1            "
-   tee outcap.$$ | perl -e 'my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){printf "\b" x 10 . "%10d",$d += $inc}' 
+   echo "       $1"
+   tee outcap.$$ | perl -e 'my $start=time;my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){$d += $inc; if (time - $start > 5){ $start=time; print "          $d lines ...\n"}}'
    if test ${PIPESTATUS[0]} -eq 1; then
-      echo "\n         ### Problem ###"
+      echo "### Problem ###"
       cat outcap.$$
       exit 1
    fi
    rm outcap.$$
-   echo -e "\b\b\b\b\b\bDONE            "
 }
 
 for fn in $BASEDIR/lib/*.func; do
