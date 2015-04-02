@@ -12,8 +12,8 @@ function buildAuto () {
        ;;
    esac
    cd $WORK_DIR
-   wget $URL -O - | tar --$DCOMP -xvf - |& progressor "Downloading $URL"
-   cd `ls -1frt| grep / | tail -n1`
+   wget $URL -q -O - | tar --$DCOMP -xvf - |& progressor "Downloading $URL"
+   cd `ls -1rt| grep / | tail -n1`
    ./configure --prefix=$PREFIX "$@" |& progressor "Configuring $URL"
    make |& progressor "Building $URL"
    make install |& progressor "Installing $URL"
