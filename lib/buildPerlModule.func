@@ -7,7 +7,7 @@ function buildPerlModule () {
    if [ ! -f $PREFIX/bin/perl ]; then
         PERL_CPANM_OPT="${PERL_CPANM_OPT} --local-lib-contained $PREFIX"
    fi
-   PERL_CPANM_HOME=$HOME PERL_CPANM_OPT=$PERL_CPANM_OPT ./cpanm -q "$@" |& sed "s/^/         /"
+   PERL_CPANM_HOME=$HOME PERL_CPANM_OPT=$PERL_CPANM_OPT ./cpanm -q "$@" |& sed "s/^/       /"
 }
 
 

@@ -92,6 +92,14 @@ shiny new 3rd party tools get found automatically. At the end of your `SourceySt
 In order for your application to integrate with the cloudfoundry infrastructure, you want to json decode the content of the
 environment variables `VCAP_SERVICES` and `VCAP_APPLICATION`.
 
+## Debugging
+
+If things are not going according to plan. You can put the folling variables into your `SourceyBuild.sh` file.
+
+`SOURCEY_VERBOSE=1` will cause all output generated at build time to be sent to STDOUT. Note that this does look like an environment variable, but infact the compile script runs grep
+on your SourceyBuild.sh to find it.
+
+`SOURCEY_REBUILD=1` will ignore any cached copy of your binaries.
 
 ## Example
 

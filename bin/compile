@@ -26,16 +26,16 @@ SB=$BUILD_DIR/SourceyBuild.sh
 
 if [ -f $SB ]; then
    MD5SUM=`md5sum $SB|awk '{print $1}'`
-   if [ -f "$CACHE_DIR/$SOURCEY/$MD5SUM" ]; then
+   if egrep -qv '^SOURCEY_REBUILD=1' $SB && test -f "$CACHE_DIR/$SOURCEY/$MD5SUM"; then
       cp --verbose --archive $CACHE_DIR/$SOURCEY $BUILD_DIR |& progressor "Restoring binaries from $CACHE_DIR"
    else
       source $SB
-      mv --verbose $PREFIX $BUILD_DIR |& progressor "Moving binaries to $BUILD_DIR ready for uplading"
+      mv --verbose $PREFIX $BUILD_DIR |& progressor "Moving binaries to $BUILD_DIR ready for uplading" 1
       if [ -d $CACHE_DIR/$SOURCEY ]; then
           chmod -R u+rwx $CACHE_DIR/$SOURCEY
           rm -rf $CACHE_DIR/$SOURCEY
       fi
-      cp --verbose --archive $BUILD_DIR/$SOURCEY $CACHE_DIR  |& progressor "Saveing a copy to $CACHE_DIR for future use"
+      cp --verbose --archive $BUILD_DIR/$SOURCEY $CACHE_DIR  |& progressor "Saveing a copy of your binaries to $CACHE_DIR for future use"
       touch $CACHE_DIR/$SOURCEY/$MD5SUM
    fi
 fi

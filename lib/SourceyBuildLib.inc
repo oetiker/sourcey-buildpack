@@ -23,13 +23,17 @@ function progressor () {
    title=$1
    countdown=${2:-0}
    echo "       $1"
-   tee outcap.$$ | perl -e 'my $start=time;my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){$d += $inc; if (time - $start > 5){ $start=time; print "          $d lines ".($inc < 0 ? "to go" : "...")."\n"}} print "          $d lines total\n" if $inc > 0'
-   if test ${PIPESTATUS[0]} -eq 1; then
-      echo "### Problem ###"
-      cat outcap.$$
-      exit 1
+   if [ $SOURCEY_VERBOSE ]; then
+      cat
+   else
+       tee outcap.$$ | perl -e 'my $start=time;my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){$d += $inc; if (time - $start > 5){ $start=time; print "          $d lines ".($inc < 0 ? "to go" : "...")."\n"}} print "          $d lines total\n" if $inc > 0'
+       if test ${PIPESTATUS[0]} -eq 1; then
+           echo "### Problem ###"
+           cat outcap.$$
+           exit 1
+       fi
+       rm outcap.$$
    fi
-   rm outcap.$$
 }
 
 for fn in $BASEDIR/lib/*.func; do
