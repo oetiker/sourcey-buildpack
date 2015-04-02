@@ -33,11 +33,11 @@ if [ -f $SB ]; then
       cp --verbose --archive $CACHE_DIR/$SOURCEY $STAGE_DIR |& progressor "Restoring binaries from $CACHE_DIR"
    else
       cd $WORK_DIR
-      echo "         Environment"
-      echo "            WORK_DIR: $WORK_DIR"
-      echo "            STAGE_DIR: $STAGE_DIR"
-      echo "            PREFIX: $PREFIX"
-      echo "            CACHE_DIR: $CACHE_DIR"
+      echo "       Environment"
+      echo "       -  WORK_DIR=$WORK_DIR"
+      echo "       -  STAGE_DIR=$STAGE_DIR"
+      echo "       -  PREFIX=$PREFIX"
+      echo "       -  CACHE_DIR=$CACHE_DIR"
        
       source $SB
       if [ -d $PREFIX ]; then
