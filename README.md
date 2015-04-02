@@ -1,61 +1,62 @@
 # A Generic Buildpack for Cloud Foundry
 
+Isn't it simply amazing to see these demos, where they throw a bunch of php,
+ruby, java or python code at a Cloud Foundry site and it gets magically
+turned into a running web applications.  Alas for me, life is often a wee
+bit more complicated than that.  My projects always seem to required a few
+extra libraries or they are even written in an dead scripting language like
+Perl.
 
-It is simply amazing to see these demos where they throw a bunch of php,
-ruby, java or python files at a Cloud Foundry site and they get magically
-turned into a running web applications.  Alas for me this does normally not
-work so well since my projects always seem to required a few extra libraries
-or even written in an unsupported scripting language like Perl.
+That's where `sourcey-buildpack` comes in. It allows you to easily compile
+any libraries and binaries from source.  It takes care of putting everyting
+into the right spot so that the end result happily lives in
+`/home/vcap/sourcey` and it even knows that it does, and therefore does not
+require any `LD_LIBRARY_PATH` or other special magic to make it work.
 
-Enters `sourcey-buildpack`. It allows you to easily compile a bunch of
-libraries and binaries from source. It takes care of putting everyting into the
-right spot so that the end result happily lives in `/home/vcap/sourcey` and
-even knows that it does so without the need for any `LD_LIBRARY_PATH`
-setting or other path magic.
+The sourcey-buildpack expects to find three special files in your application directory:
 
-The Sourcey-buildpack expects to find three special files in your application directory:
+`SourceyBuild.sh` (optional) to compile all the binaries you need.
 
-`SourceyBuild.sh` (optional) is used at build-time to compile all the binaries you need.
+`SourceyBuildApp.sh` (optional) to prepare the actual application if this needs any prepping.
 
-`SourceyBuildApp.sh` (optional) is used at build-time of the actual application if this needs any building.
-
-`SourceyStart.sh` (mandatory) is used at runtime to launch the application.
+`SourceyStart.sh` (mandatory) to launch the application at runtime.
 
 ## `SourceyBuild.sh`
 
-This script builds the third party software you require for your project. 
-You are free to do this yourself as long as the result of your effort ends
-up in the right location. 
+In this script you build your thirdparty software. At the most basic level, you just have
+to make sure to install the result into `$PREFIX`.
 
-Just make sure you install everything into `$PREFIX`.
+You may want to use `$WORK_DIR` to unpack your source. And if you need other files from your application
+you can find them in `$BUILD_DIR`.
 
-At build-time `$PREFIX` points to `$HOME/sourcey` with `$HOME` pointing to `/home/vcap`.
-Note: that at runtime `$HOME` will point to `/home/vcap/app`!
-
-For a classic autotools packaged application, your setup instructions might look like this:
+For a classic autotools packaged application, your setup instructions might
+look like this:
 
 ```shell
-wget http://cool-site.com/source.tar.gz
+cd $WORK_DIR
+wget http://cool-site.com/tool.tar.gz
 tar xf tool.tar.gz
 cd tool
 ./configure --prefix=$PREFIX
 make install
+cd ..
+rm -r tool
 ```
 
-When your script has run through, Sourcey does two things:
+When your script has run through, Sourcey goes to work.
 
 1. It moves the content `$PREFIX` into `$STAGE_DIR/sourcey`, ready for packaging.
 
 2. It creates a copy of `$STAGE_DIR/sourcey` in `$CACHE_DIR` and tags it
    with the md5 sum of your `SourceyBuild.sh`.  If you re-deploy the same
-   app again, without changing `SourceyBuild.sh`.  The content of the
+   app again, without changing `SourceyBuild.sh` the content of the
    `$CACHE_DIR` will be used in stead of rebuilding everything.
 
-To make live a bit simpler still, Sourcey provides a bunch of helper functions:
+To make life a bit simpler still, Sourcey provides a few of helper functions:
 
 ### `buildAuto <url> [options]`
 
-Essentially does the same as described in detail above, just simpler. If you
+Does essentially the same build proces as described in the example above. If you
 want to specify extra configure options, just add them as extra arguments at
 the end of the function call:
 
@@ -65,10 +66,10 @@ buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 
 ### `buildPerl <version>`
 
-This is how it all got started. How to write a decent web application
-without Perl.  Since most Cloud Foundry setups are on Ubuntu lucid (10.04)
-stacks, perl is at 5.10.1 which is about 100 years out of date.  With
-this call you get a fresh copy.
+Is the most important function of them all. It creates the perl of your
+choice.  How to write a decent web application without Perl.  Since most
+Cloud Foundry setups are on Ubuntu lucid (10.04) stacks, perl is at version 5.10.1
+which is about 100 years out of date. 
 
 ```sh
 buildPerl 5.20.2
@@ -76,22 +77,23 @@ buildPerl 5.20.2
 
 ### `buildPerlModule [any cpanm option]`
 
-This is a wrapper for cpanm which you can use to install extra perl modules.
-The new modules will get installed into your freshly installed perl setup,
-or if you have not done that, the system perl will be used and the modules
-will go to `/home/vcap/app/sourcey/lib/perl5`.  Sourcey will take care of
+This is a wrapper for `cpanm` which you can use to install extra perl modules.
+The new modules will get installed into your freshly installed perl,
+or if you have not done so, the system perl will be used and the modules
+will go to `/home/vcap/sourcey/lib/perl5`.  Sourcey will take care of
 setting the `PERL5LIB` variable accordingly.
 
 ## `SourceyBuildApp.sh`
 
-This script can do whatever you deem necessary to get your actual application into shape for execution. Nothing will be cached. If you
-push an update for your application, this script will run again.
+This script can do whatever you deem necessary to get your actual
+application into shape for execution.  Nothing will be cached.  If you push
+an update for your application, this script will run again.
 
 
 ## `SourceyStart.sh`
 
 This one gets executed when your application should be started. Sourcey will
-take care of setting the PATH variable so that all these shiny new 3rd party
+take care of setting the `$PATH` variable so that all these shiny new 3rd party
 tools get found automatically.  At the end of your `SourceyStart.sh` someone
 should be listening port `$PORT` for incoming web requests.
 
@@ -106,9 +108,9 @@ into your `SourceyBuild.sh` file.
 
 `SOURCEY_VERBOSE=1` will cause all output generated at build time to be sent
 to STDOUT.  Note that this does look like an environment variable, but
-infact the compile script runs grep on your SourceyBuild.sh to find it.
+in fact the compile script runs `grep` on your `SourceyBuild.sh` to detect it.
 
-`SOURCEY_REBUILD=1` will ignore any cached copy of your binaries.
+`SOURCEY_REBUILD=1` will ignore any cached copy of your binaries and rebuild the lot.
 
 ## Example
 
