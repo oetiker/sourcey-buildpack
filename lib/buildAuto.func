@@ -1,7 +1,17 @@
 function buildAuto () {
    URL=$1
    shift
-   wget $URL -O - | tar xf -
+   case $URL in
+       *.gz) DCOMP=gzip
+       ;;
+       *.lz) DCOMP=lzip
+       ;;
+       *.xz) DCOMP=xz
+       ;;
+       *) echo NO decompressor for $URL; exit 1
+       ;;
+   esac
+   wget $URL -O - | tar --$DCOMP -xf -
    pushd "`ls -1frt| grep /| tail -1`"
    ./configure --prefix=$PREFIX "$@"
    make install DESTDIR=$BUILD_DIR
