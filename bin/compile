@@ -30,7 +30,7 @@ if [ -f $SB ]; then
       cp --verbose --archive $CACHE_DIR/$SOURCEY $BUILD_DIR |& progressor "Restoring binaries from $CACHE_DIR"
    else
       source $SB
-      mv --verbose $PREFIX $BUILD_DIR |& progressor "Moving binaries to $BUILD_DIR"
+      mv --verbose $PREFIX $BUILD_DIR |& progressor "Moving binaries to $BUILD_DIR ready for uplading"
       if [ -d $CACHE_DIR/$SOURCEY ]; then
           chmod -R u+rwx $CACHE_DIR/$SOURCEY
           rm -rf $CACHE_DIR/$SOURCEY
