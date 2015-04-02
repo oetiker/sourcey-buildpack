@@ -123,13 +123,26 @@ an update for your application, this script will run again.
 ## The `SourceyStart.sh` script
 
 This one gets executed when your application should be started. Sourcey will
-take care of setting the `$PATH` variable so that all these shiny new 3rd party
-tools get found automatically.  At the end of your `SourceyStart.sh` someone
-should be listening port `$PORT` for incoming web requests.
+take care of setting the `$PATH` variable so that all these shiny new 3rd
+party tools get found automatically.  If you have not setup your own copy of
+perl, the `$PERL5LIB` path will be set, so that the system perl finds any
+new modules you may have compiled.
 
-In order for your application to integrate with the cloudfoundry
-infrastructure, you want to json decode the content of the environment
+At the end of your `SourceyStart.sh` someone should be listening port
+`$PORT` for incoming web requests.
+
+In order for your application to integrate with the Cloud Foundry
+infrastructure, you want to JSON decode the content of the environment
 variables `$VCAP_SERVICES` and `$VCAP_APPLICATION`.
+
+The directory layout at runtime.
+
+```
+/home
+   /vcap
+      /app  (aka $HOME !!!)
+      /sourcey 
+```
 
 ## Debugging
 
