@@ -40,7 +40,6 @@ if [ -f $SB ]; then
       echo "            CACHE_DIR: $CACHE_DIR"
        
       source $SB
-      rm -rf $WORK_DIR
       if [ -d $PREFIX ]; then
           mv --verbose $PREFIX $STAGE_DIR |& progressor "Moving binaries to $STAGE_DIR ready for uploading" 1
           if [ -d $CACHE_DIR/$SOURCEY ]; then
@@ -54,7 +53,11 @@ if [ -f $SB ]; then
 fi
 
 if [ -r $BUILD_DIR/SourceyBuildApp.sh ]; then
+   cd $WORK_DIR
    source $BUILD_DIR/SourceyBuildApp.sh
 fi
 
 chmod 755 $BUILD_DIR/SourceyStart.sh
+
+cd $HOME
+rm -rf $WORK_DIR
