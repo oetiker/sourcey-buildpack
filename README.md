@@ -68,7 +68,7 @@ buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 
 This is how it all got started. How to write a decent web application without Perl. Since most cloudfoundry setups are on Ubuntu lucid (10.04) still, perl is also at 5.10.1 which is about 100 years out of date. With this call you get a fresh copy.
 
-```shell
+```sh
 buildPerl 5.20.2
 ```
 
@@ -103,4 +103,15 @@ on your SourceyBuild.sh to find it.
 
 ## Example
 
-See the example directory for inspiration as to how this would look in reality.
+The code in the example directory demonstrates how to setup a simple
+Mojolicious Perl app.
+
+The following instructions assume you have already setup a cloudfoundry
+account and you have logged yourself in with `cf login`
+
+```sh
+cd example
+cf push $USER-sourcey-demo -b https://github.com/oetiker/sourcey-buildpack
+```
+
+
