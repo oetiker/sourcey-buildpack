@@ -23,7 +23,7 @@ function progressor () {
    title=$1
    countdown=${2:-0}
    echo "       $1"
-   if [ $SOURCEY_VERBOSE ]; then
+   if [ ${SOURCEY_VERBOSE:-0} = 1 ]; then
       cat
    else
        tee outcap.$$ | perl -e 'my $start=time;my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){$d += $inc; if (time - $start > 5){ $start=time; print "          $d lines ".($inc < 0 ? "to go" : "...")."\n"}} print "          $d lines total\n" if $inc > 0'
