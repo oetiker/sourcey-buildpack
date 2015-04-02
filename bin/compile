@@ -7,10 +7,13 @@ set +o hashall
 ## do not tolerate unset variables
 set -u
 
+## show the environment we are building in
+env
+
 SOURCEY=sourcey
 BUILD_DIR=$1
 CACHE_DIR=$2
-PREFIX=/home/vap/app/$SOURCEY
+PREFIX=/home/vcap/app/$SOURCEY
 
 MYDIR=$(cd `dirname $0`/..;pwd)
 source $MYDIR/lib/SourceyBuildLib.inc $MYDIR
