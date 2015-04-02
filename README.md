@@ -70,15 +70,17 @@ The directory layout at build time:
       /sourcey
 ```
 
-The `/home/vcap` directory will also be the location where you are working at runtime. By compiling
+The `/home/vcap` directory is where your application will reside at runtime. By compiling
 your binaries into that location, their world view will be intact at runtime as well.
 
 The `/tmp/stage` directory gets packaged up and transfered to the run-time
 environment.  At first only your application will be sitting there (in the
 `/tmp/stage/app` directory).
  
-The content of the `/tmp/cache` directory will made available whenever you push your application again. Sourcey uses this location
-to cache compiled binaries. Which accelerates startup.
+The content of the `/tmp/cache` directory will made available whenever you
+push your application again.  Sourcey uses this location to cache compiled
+binaries and restore them when you push an update without changeing the
+`SourceyBuild.sh` file.
 
 ### Helpers
 
