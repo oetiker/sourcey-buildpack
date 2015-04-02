@@ -1,7 +1,6 @@
 #
 # Some helpful function for the compile call
 #
-BASEDIR=$1
 
 SOURCEY=sourcey
 # where we build stuff
@@ -36,6 +35,6 @@ function progressor () {
    fi
 }
 
-for fn in $BASEDIR/lib/*.func; do
+for fn in $BUILDPACK_DIR/lib/*.func; do
     source $fn
 done
