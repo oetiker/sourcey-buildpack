@@ -19,7 +19,7 @@ export CPPFLAGS="-I$BUILD_DIR$PREFIX/include"
 # find our own perl modules
 export PERL5LIB=$BUILD_DIR$PREFIX/lib/perl5
 
-progressor () {
+function progressor () {
    title=$1
    countdown=$2
    echo "        $1"
