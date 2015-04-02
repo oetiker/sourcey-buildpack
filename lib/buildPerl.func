@@ -15,5 +15,5 @@ function buildPerl () {
         -Dusethreads -de |& progressor "Configuring Perl $PERL_VER" 2263
    make |& progressor "Building Perl $PERL_VER"
    make install |& progressor "Installing Perl $PERL_VER"
-   popd
+   popd >/dev/null
 }

@@ -11,9 +11,10 @@ function buildAuto () {
        *) echo NO decompressor for $URL; exit 1
        ;;
    esac
-   wget $URL -O - | tar --$DCOMP -xf -
-   pushd "`ls -1frt| grep /| tail -1`"
-   ./configure --prefix=$PREFIX "$@"
-   make install
-   popd
+   wget $URL -O - | tar --$DCOMP -xvf - |& progressor "Downloading $URL"
+   pushd `ls -1frt| grep /| tail -1` > /dev/null
+   ./configure --prefix=$PREFIX "$@" |& progressor "Configuring $URL"
+   make |& progressor "Building $URL"
+   make install |& progressor "Installing $URL"
+   popd >/dev/null
 }
