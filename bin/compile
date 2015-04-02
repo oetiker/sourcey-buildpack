@@ -16,16 +16,17 @@ CACHE_DIR=$2
 PREFIX=$HOME/app/$SOURCEY
 
 MYDIR=$(cd `dirname $0`/..;pwd)
+MYPWD=$PWD
+
 source $MYDIR/lib/SourceyBuildLib.inc $MYDIR
 
 mkdir -p $BUILD_DIR $CACHE_DIR
 
 SB=$BUILD_DIR/SourceyBuild.sh
 
-
 if [ -f $SB ]; then
-   MD5SUM=`md5sum $SB`
-   if [ -f $CACHE_DIR/$SOURCEY/$MD5SUM ]; then
+   MD5SUM=`md5sum $SB|awk '{print $1}'`
+   if [ -f "$CACHE_DIR/$SOURCEY/$MD5SUM" ]; then
       cp --verbose --archive $CACHE_DIR/$SOURCEY $BUILD_DIR | progressor "Restoring binaries from $CACHE_DIR"
    else
       source $SB
