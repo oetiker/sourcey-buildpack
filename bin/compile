@@ -12,14 +12,16 @@ set -e
 ## show the environment we are building in
 SOURCEY=sourcey
 BUILD_DIR=$1
+STAGE_DIR=$(dirname $BUILD_DIR)
 CACHE_DIR=$2
 PREFIX=$HOME/$SOURCEY
-WORK_DIR=/tmp/$SOURCEY.$$
 START_DIR=`pwd`
+BUILDPACK_DIR=$(dirname `dirname $0`)
 
+WORK_DIR=/tmp/$SOURCEY.$$
 mkdir -p $WORK_DIR
 
-source $START_DIR/lib/SourceyBuildLib.inc $START_DIR
+source $BUILDPACK_DIR/lib/SourceyBuildLib.inc
 
 mkdir -p $BUILD_DIR $CACHE_DIR
 
@@ -28,18 +30,18 @@ SB=$BUILD_DIR/SourceyBuild.sh
 if [ -f $SB ]; then
    MD5SUM=`md5sum $SB|awk '{print $1}'`
    if egrep -qv '^SOURCEY_REBUILD=1' $SB && test -f "$CACHE_DIR/$SOURCEY/$MD5SUM"; then
-      cp --verbose --archive $CACHE_DIR/$SOURCEY $BUILD_DIR/.. |& progressor "Restoring binaries from $CACHE_DIR"
+      cp --verbose --archive $CACHE_DIR/$SOURCEY $STAGE_DIR |& progressor "Restoring binaries from $CACHE_DIR"
    else
       cd $WORK_DIR
       source $SB
       rm -rf $WORK_DIR
       if [ -d $PREFIX ]; then
-          mv --verbose $PREFIX $BUILD_DIR/.. |& progressor "Moving binaries to $BUILD_DIR ready for uploading" 1
+          mv --verbose $PREFIX $STAGE_DIR |& progressor "Moving binaries to $STAGE_DIR ready for uploading" 1
           if [ -d $CACHE_DIR/$SOURCEY ]; then
               chmod -R u+rwx $CACHE_DIR/$SOURCEY
               rm -rf $CACHE_DIR/$SOURCEY
           fi
-          cp --verbose --archive $BUILD_DIR/../$SOURCEY $CACHE_DIR  |& progressor "Saveing a copy of your binaries to $CACHE_DIR for future use"
+          cp --verbose --archive $STAGE_DIR/$SOURCEY $CACHE_DIR  |& progressor "Saveing a copy of your binaries to $CACHE_DIR for future use"
           touch $CACHE_DIR/$SOURCEY/$MD5SUM
       fi
    fi
