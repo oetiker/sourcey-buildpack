@@ -34,7 +34,7 @@ if [ -f $SB ]; then
           chmod -R u+rwx $CACHE_DIR/$SOURCEY
           rm -rf $CACHE_DIR/$SOURCEY
       fi
-      cp --archive $PREFIX $CACHE_DIR
+      cp --archive $BUILD_DIR/$SOURCEY $CACHE_DIR
       touch $CACHE_DIR/$SOURCEY/$MD5SUM
    fi
 fi
