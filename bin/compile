@@ -22,7 +22,7 @@ SB=$BUILD_DIR/SourceyBuild.sh
 
 if [ -f $SB ]; then
    MD5SUM=`md5sum $SB`
-   if [ -f $CACHE_PATH/$SOURCEY/$MD5SUM ]; then
+   if [ -f $CACHE_DIR/$SOURCEY/$MD5SUM ]; then
       cp --archive $CACHE_DIR/$SOURCEY $BUILD_DIR
    else
       . $BUILD_DIR/SourceyBuild.sh
@@ -30,7 +30,7 @@ if [ -f $SB ]; then
       chmod -R u+rws $CACHE_DIR/$SOURCEY
       rm -rf $CACHE_DIR/$SOURCEY
       cp --archive $BUILD_DIR/$SOURCEY $CACHE_DIR
-      touch $CACHE_PATH/$SOURCEY/$MD5SUM
+      touch $CACHE_DIR/$SOURCEY/$MD5SUM
    fi
 fi
 
