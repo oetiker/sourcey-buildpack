@@ -12,6 +12,6 @@ function buildPerl () {
      -Duserelocatableinc \
      -Dusethreads -des
    make
-   make install DESTDIR=$DESTDIR
+   make install DESTDIR=$BUILD_DIR
    popd
 }
