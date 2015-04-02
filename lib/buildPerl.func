@@ -3,7 +3,7 @@
 function buildPerl () {
    PERL_VER=$1
    wget http://www.cpan.org/src/5.0/perl-${PERL_VER}.tar.gz  -O - | tar --gzip -xf -
-   pushd "`ls -1frt| grep /| tail -1`"
+   pushd perl-${PERL_VER}
    ./Configure \
      -Ui_db \
      -Dprefix=$PREFIX \
@@ -13,4 +13,5 @@ function buildPerl () {
      -Dusethreads -des
    make
    make install DESTDIR=$DESTDIR
+   popd
 }
