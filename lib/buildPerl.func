@@ -5,12 +5,14 @@ function buildPerl () {
    wget http://www.cpan.org/src/5.0/perl-${PERL_VER}.tar.gz  -O - | tar --gzip -xf -
    pushd perl-${PERL_VER}
    ./Configure \
-     -Ui_db \
-     -Dprefix=$PREFIX \
-     -Dprivlib=.../../lib/perl \
-     -Dsitelib=.../../lib/perl5 \
-     -Duserelocatableinc \
-     -Dusethreads -des
+        -de \
+        -Ui_db \
+        -Dprivlib=$PREFIX/lib/perl \
+        -Dsitelib=$PREFIX/lib/perl5 \
+        -Dprefix=$PREFIX \
+        -Dperlpath="$PREFIX/bin/perl" \
+        -Dstartperl="#!$PREFIX/bin/perl" \
+        -Dusethreads -de
    make
    make install
    popd
