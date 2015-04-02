@@ -1,9 +1,13 @@
 #
 # Some helpful function for the compile call
 #
+BASEDIR=$1
 
+SOURCEY=sourcey
+# where we build stuff
+PREFIX=$HOME/app/$SOURCEY
 # make sure we find anything we preinstall
-export PATH=$BUILD_DIR$PREFIX/bin:$PATH
+export PATH=$PREFIX/bin:$PATH
 # tell pkg-config where to look for *.pc files
 export PKG_CONFIG_PATH=$BUILD_DIR$PREFIX/lib/pkgconfig
 # just to make sure those who are not compiled propperly still work
@@ -15,6 +19,6 @@ export CPPFLAGS="-I$BUILD_DIR$PREFIX/include"
 # find our own perl modules
 export PERL5LIB=$BUILD_DIR$PREFIX/lib/perl5
 
-for fn in $(ls -1 $1/lib/*.func); do
+for fn in $BASEDIR/lib/*.func; do
     source $fn
 done

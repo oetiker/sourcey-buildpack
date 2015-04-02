@@ -6,14 +6,14 @@ set -o errexit
 set +o hashall
 ## do not tolerate unset variables
 set -u
+## quit on non 0 exit codes
+set -e
 
 ## show the environment we are building in
-env
-
 SOURCEY=sourcey
 BUILD_DIR=$1
 CACHE_DIR=$2
-PREFIX=/home/vcap/app/$SOURCEY
+PREFIX=$HOME/app/$SOURCEY
 
 MYDIR=$(cd `dirname $0`/..;pwd)
 source $MYDIR/lib/SourceyBuildLib.inc $MYDIR
@@ -28,17 +28,19 @@ if [ -f $SB ]; then
    if [ -f $CACHE_DIR/$SOURCEY/$MD5SUM ]; then
       cp --archive $CACHE_DIR/$SOURCEY $BUILD_DIR
    else
-      . $BUILD_DIR/SourceyBuild.sh
-      mv $BUILD_DIR$PREFIX $BUILD_DIR
-      chmod -R u+rws $CACHE_DIR/$SOURCEY
-      rm -rf $CACHE_DIR/$SOURCEY
-      cp --archive $BUILD_DIR/$SOURCEY $CACHE_DIR
+      source $SB
+      mv $PREFIX $BUILD_DIR
+      if [ -d $CACHE_DIR/$SOURCEY ]; then
+          chmod -R u+rwx $CACHE_DIR/$SOURCEY
+          rm -rf $CACHE_DIR/$SOURCEY
+      fi
+      cp --archive $PREFIX $CACHE_DIR
       touch $CACHE_DIR/$SOURCEY/$MD5SUM
    fi
 fi
 
 if [ -r $BUILD_DIR/SourceyBuildApp.sh ]; then
-   . $BUILD_DIR/SourceyBuildApp.sh
+   source $BUILD_DIR/SourceyBuildApp.sh
 fi
 
 chmod 755 $BUILD_DIR/SourceyStart.sh

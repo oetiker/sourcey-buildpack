@@ -14,6 +14,6 @@ function buildAuto () {
    wget $URL -O - | tar --$DCOMP -xf -
    pushd "`ls -1frt| grep /| tail -1`"
    ./configure --prefix=$PREFIX "$@"
-   make install DESTDIR=$BUILD_DIR
+   make install
    popd
 }

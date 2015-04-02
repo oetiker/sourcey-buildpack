@@ -30,10 +30,9 @@ which help you in this:
 will end up at runtime.
 
 `BUILD_DIR` pointing to `/tmp/staged/app` where the cloudfoundry
-droplet build process expects to find the results of your efforts to reside.
+droplet build process expects to find the results of your compile efforts to reside.
 
-At the end of your script all software must be installed in `$BUILD_DIR$PREFIX` and they must be
-setup to work when running from `$PREFIX`.
+At the end of your script all software must be installed in `$PREFIX`.
 
 For a classic autotools packaged application, your setup instructions might look like this:
 
@@ -42,12 +41,12 @@ wget http://cool-site.com/source.tar.gz
 tar xf tool.tar.gz
 cd tool
 ./configure --prefix=$PREFIX
-make install DESTDIR=$BUILD_DIR
+make install
 ```
 
-When the script has run through, Sourcey does two things:
+When your script has run through, Sourcey does two things:
 
-1. It moves `$BUILD_DIR$PREFIX` up to `$BUILD_DIR`, and thus making sure that at runtime
+1. It moves `$PREFIX` up to `$BUILD_DIR`, and thus making sure that at runtime
    your binaries will end up in $PREFIX again.
 
 2. It creates a copy of `$BUILD_DIR/sourcey` in `$CACHE_DIR` and tags it with the md5 sum of your `SourceyBuild3rdParty.sh`.
