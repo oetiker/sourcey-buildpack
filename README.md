@@ -6,13 +6,13 @@ turned into a running web applications.  Alas for me this does normally not
 work so well since I always need a few extra libraries or even an
 unsupported scripting language like Perl.
 
-Enters `Sourcey-buildpack`. It allows you to easily compile a bunch of
+Enters `sourcey-buildpack`. It allows you to easily compile a bunch of
 libraries and binaries from source. It takes care of fixing installation paths
 such that the end result happily lives in `/home/vcap/app/sourcey` and
 even knows that it does so without the need for any `LD_LIBRARY_PATH`
 setting or other path magic.
 
-The Sourcey-buildpack expects to find two special files in your application directory:
+The Sourcey-buildpack expects to find up to three special files in your application directory:
 
 `SourceyBuild.sh` (optional) is used at build-time to compile all the binaries you need.
 
@@ -22,15 +22,15 @@ The Sourcey-buildpack expects to find two special files in your application dire
 
 ## `SourceyBuild.sh`
 
-In this script your required thirdparty software. You are free to move about the cabin as long
+This script builds the third party software you require. You are free to move about the cabin as long
 as the result of your effort ends up in the right location. There are two environment variables
 which help you in this:
 
-`PREFIX` pointing to `/home/vcap/app/sourcey` as this is the place where your compiled software
-will end up at runtime.
+`PREFIX` pointing to `$HOME/app/sourcey` as this is the place where your compiled software
+will end up at runtime. (Note that HOME at build time points to /home/vcap while HOME at runtime points to /home/vcap/app!).
 
-`BUILD_DIR` pointing to `/tmp/staged/app` where the cloudfoundry
-droplet build process expects to find the results of your compile efforts to reside.
+`BUILD_DIR` pointing to the dirctory where the cloudfoundry
+droplet build process expects to find the files necessary for running your app to reside.
 
 At the end of your script all software must be installed in `$PREFIX`.
 
