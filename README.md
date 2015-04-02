@@ -99,9 +99,12 @@ buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 #### `buildPerl <version>`
 
 Is the most important function of them all. It creates the perl of your
-choice.  How to write a decent web application without Perl.  Since most
-Cloud Foundry setups are on Ubuntu lucid (10.04) stacks, perl is at version 5.10.1
-which is about 100 years out of date. 
+choice.  Can't write a decent web application without perl, mojolicious or
+dancer.
+
+Since most Cloud Foundry setups are on Ubuntu lucid (10.04) stacks, perl is
+at version 5.10.1 which is about 100 years out of date.  This is was what got
+me to write this in the first place.
 
 ```sh
 buildPerl 5.20.2
