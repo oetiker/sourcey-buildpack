@@ -1,9 +1,10 @@
 # build a copy of perl
 
 function buildPerl () {
+   cd $WORK_DIR
    PERL_VER=$1
    wget http://www.cpan.org/src/5.0/perl-${PERL_VER}.tar.gz -q -O - | tar --gzip -xvf - |& progressor "Downloading Perl $PERL_VER" 6571
-   pushd perl-${PERL_VER} >/dev/null
+   cd perl-${PERL_VER}
    ./Configure \
         -de \
         -Ui_db \
@@ -15,5 +16,5 @@ function buildPerl () {
         -Dusethreads -de |& progressor "Configuring Perl $PERL_VER" 2263
    make |& progressor "Building Perl $PERL_VER" 3277
    make install |& progressor "Installing Perl $PERL_VER" 2808
-   popd >/dev/null
+   cd $WORK_DIR
 }

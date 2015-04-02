@@ -1,4 +1,4 @@
-function buildAuto () {
+function buildAuto () {   
    URL=$1
    shift
    case $URL in
@@ -11,10 +11,11 @@ function buildAuto () {
        *) echo NO decompressor for $URL; exit 1
        ;;
    esac
+   cd $WORK_DIR
    wget $URL -O - | tar --$DCOMP -xvf - |& progressor "Downloading $URL"
-   pushd `ls -1frt| grep /| tail -1` > /dev/null
+   cd `ls -1frt| grep / | tail -n1`
    ./configure --prefix=$PREFIX "$@" |& progressor "Configuring $URL"
    make |& progressor "Building $URL"
    make install |& progressor "Installing $URL"
-   popd >/dev/null
+   cd $WORK_DIR
 }

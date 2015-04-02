@@ -1,4 +1,5 @@
 function buildPerlModule () {
+   cd $WORK_DIR
    if [ ! -x cpanm ]; then
         wget --no-check-certificate -O cpanm cpanmin.us |& progressor "Downloading cpanminus"
         chmod 755 cpanm
@@ -7,7 +8,8 @@ function buildPerlModule () {
    if [ ! -f $PREFIX/bin/perl ]; then
         PERL_CPANM_OPT="${PERL_CPANM_OPT} --local-lib-contained $PREFIX"
    fi
-   PERL_CPANM_HOME=$HOME PERL_CPANM_OPT=$PERL_CPANM_OPT ./cpanm -q "$@" |& sed "s/^/       /"
+   PERL_CPANM_HOME=$WORK_DIR PERL_CPANM_OPT=$PERL_CPANM_OPT ./cpanm -q "$@" |& sed "s/^/       /"
+   cd $WORK_DIR
 }
 
 
