@@ -28,7 +28,10 @@ mkdir -p $BUILD_DIR $CACHE_DIR
 SB=$BUILD_DIR/SourceyBuild.sh
 
 if [ -f $SB ]; then
-   MD5SUM=`md5sum $SB|awk '{print $1}'`
+   # to force a full recompile, increment the Rx part of the md5sum
+   # only do this if you change something fundamental in the compile
+   # system
+   MD5SUM=`md5sum $SB|awk '{print $1}'`.R2
    if egrep -qv '^SOURCEY_REBUILD=1' $SB && test -f "$CACHE_DIR/$SOURCEY/$MD5SUM"; then
       cp --verbose --archive $CACHE_DIR/$SOURCEY $STAGE_DIR |& progressor "Restoring binaries from $CACHE_DIR"
    else
