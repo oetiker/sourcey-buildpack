@@ -15,9 +15,9 @@ PREFIX=/home/vap/app/$SOURCEY
 MYDIR=$(cd `dirname $0`/..;pwd)
 source $MYDIR/lib/SourceyBuildLib.inc $MYDIR
 
-mkdir -p $BUILD_PATH $CACHE_PATH
+mkdir -p $BUILD_DIR $CACHE_DIR
 
-SB=$BUILD_PATH/SourceyBuild.sh
+SB=$BUILD_DIR/SourceyBuild.sh
 
 
 if [ -f $SB ]; then
@@ -34,8 +34,8 @@ if [ -f $SB ]; then
    fi
 fi
 
-if [ -r $BUILD_PATH/SourceyBuildApp.sh ]; then
-   . $BUILD_PATH/SourceyBuildApp.sh
+if [ -r $BUILD_DIR/SourceyBuildApp.sh ]; then
+   . $BUILD_DIR/SourceyBuildApp.sh
 fi
 
 chmod 755 $BUILD_DIR/SourceyStart.sh
