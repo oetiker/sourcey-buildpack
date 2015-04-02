@@ -7,9 +7,9 @@ work so well since I always need a few extra libraries or even an
 unsupported scripting language like Perl.
 
 Enters `Sourcey-buildpack`. It allows you to easily compile a bunch of
-libraries and binaries from source taking care of fixing installation paths
-such that the end result happily lives in `/home/vcap/app/thirdparty` and
-even knows that it does so, without the need for any `LD_LIBRARY_PATH`
+libraries and binaries from source. It takes care of fixing installation paths
+such that the end result happily lives in `/home/vcap/app/sourcey` and
+even knows that it does so without the need for any `LD_LIBRARY_PATH`
 setting or other path magic.
 
 The Sourcey-buildpack expects to find two special files in your application directory:
