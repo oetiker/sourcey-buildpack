@@ -12,8 +12,8 @@ function buildPerl () {
         -Dprefix=$PREFIX \
         -Dperlpath="$PREFIX/bin/perl" \
         -Dstartperl="#!$PREFIX/bin/perl" \
-        -Dusethreads -de
-   make
-   make install
+        -Dusethreads -de | progressor "Configuring Perl $PERL_VER"
+   make | progressor "Building Perl $PERL_VER"
+   make install | progressor "Installing Perl $PERL_VER"
    popd
 }

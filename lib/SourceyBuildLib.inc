@@ -19,6 +19,20 @@ export CPPFLAGS="-I$BUILD_DIR$PREFIX/include"
 # find our own perl modules
 export PERL5LIB=$BUILD_DIR$PREFIX/lib/perl5
 
+progressor () {
+   title=$1
+   countdown=$2
+   echo "        $1"
+   tee outcap.$$ | perl -e 'my $d='$countdown'; my $inc = $d ? 1 : -1; $|=1;while (<>){printf "\b" x 10 . "%10d",$d+=$inc}' 
+   if test ${PIPESTATUS[0] -eq 1; then
+      echo "         ### Problem ###"
+      cat outcap.$$
+      exit 1
+   fi
+   rm outcap.$$
+   echo
+}
+
 for fn in $BASEDIR/lib/*.func; do
     source $fn
 done
