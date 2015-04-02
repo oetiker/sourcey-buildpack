@@ -21,13 +21,13 @@ The sourcey-buildpack expects to find three special files in your application di
 
 `SourceyStart.sh` (mandatory) to launch the application at runtime.
 
-## `SourceyBuild.sh`
+## The `SourceyBuild.sh` script
 
-In this script you build your thirdparty software. At the most basic level, you just have
-to make sure to install the result into `$PREFIX`.
+In this script you build your thirdparty software. At the most basic level,
+you just have to make sure to install the result into `$PREFIX`.
 
-You may want to use `$WORK_DIR` to unpack your source. And if you need other files from your application
-you can find them in `$BUILD_DIR`.
+You may want to use `$WORK_DIR` to unpack your source. And if you need other
+files from your application you can find them in `$BUILD_DIR`.
 
 For a classic autotools packaged application, your setup instructions might
 look like this:
@@ -52,9 +52,39 @@ When your script has run through, Sourcey goes to work.
    app again, without changing `SourceyBuild.sh` the content of the
    `$CACHE_DIR` will be used in stead of rebuilding everything.
 
+
+The directory layout at build time:
+
+```
+/home
+   /vcap (aka $HOME)
+      /sourcey (aka $PREFIX)
+
+/tmp
+   /sourcey.$$ (aka $WORK_DIR)
+   /cache (aka $CACHE_DIR)
+
+/tmp
+   /stage (aka $STAGE_DIR)
+      /app (aka $BUILD_DIR)
+      /sourcey
+```
+
+The `/home/vcap` directory will also be the location where you are working at runtime. By compiling
+your binaries into that location, their world view will be intact at runtime as well.
+
+The `/tmp/stage` directory gets packaged up and transfered to the run-time
+environment.  At first only your application will be sitting there (in the
+`/tmp/stage/app` directory).
+ 
+The content of the `/tmp/cache` directory will made available whenever you push your application again. Sourcey uses this location
+to cache compiled binaries. Which accelerates startup.
+
+### Helpers
+
 To make life a bit simpler still, Sourcey provides a few of helper functions:
 
-### `buildAuto <url> [options]`
+#### `buildAuto <url> [options]`
 
 Does essentially the same build proces as described in the example above. If you
 want to specify extra configure options, just add them as extra arguments at
@@ -64,7 +94,7 @@ the end of the function call:
 buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 ```
 
-### `buildPerl <version>`
+#### `buildPerl <version>`
 
 Is the most important function of them all. It creates the perl of your
 choice.  How to write a decent web application without Perl.  Since most
@@ -75,7 +105,7 @@ which is about 100 years out of date.
 buildPerl 5.20.2
 ```
 
-### `buildPerlModule [any cpanm option]`
+#### `buildPerlModule [any cpanm option]`
 
 This is a wrapper for `cpanm` which you can use to install extra perl modules.
 The new modules will get installed into your freshly installed perl,
@@ -83,14 +113,14 @@ or if you have not done so, the system perl will be used and the modules
 will go to `/home/vcap/sourcey/lib/perl5`.  Sourcey will take care of
 setting the `PERL5LIB` variable accordingly.
 
-## `SourceyBuildApp.sh`
+## The `SourceyBuildApp.sh` script
 
 This script can do whatever you deem necessary to get your actual
 application into shape for execution.  Nothing will be cached.  If you push
 an update for your application, this script will run again.
 
 
-## `SourceyStart.sh`
+## The `SourceyStart.sh` script
 
 This one gets executed when your application should be started. Sourcey will
 take care of setting the `$PATH` variable so that all these shiny new 3rd party
@@ -124,5 +154,3 @@ account and you have logged yourself in with `cf login`
 cd example
 cf push $USER-sourcey-demo -b https://github.com/oetiker/sourcey-buildpack
 ```
-
-
