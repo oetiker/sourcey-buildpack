@@ -1,5 +1,7 @@
 # A Generic Buildpack for Cloud Foundry
 
+[![Build Status](https://travis-ci.org/oetiker/sourcey-buildpack.svg)](https://travis-ci.org/oetiker/sourcey-buildpack)
+
 Isn't it simply amazing to see these demos, where they throw a bunch of php,
 ruby, java or python code at a Cloud Foundry site and it gets magically
 turned into a running web applications.  Alas for me, life is often a wee
