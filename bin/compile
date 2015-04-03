@@ -1,13 +1,13 @@
 #!/bin/bash
 
-## other decision structure
-set -o errexit
+# any failure in a pipe is a problem
+set -o pipefail
+## do not tolerate unset variables
+set -o nounset
 # don't try to remember where things are
 set +o hashall
-## do not tolerate unset variables
-set -u
-## quit on non 0 exit codes
-set -e
+
+set -o errtrace
 
 ## show the environment we are building in
 SOURCEY=sourcey

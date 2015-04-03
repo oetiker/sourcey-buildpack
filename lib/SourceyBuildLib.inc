@@ -18,20 +18,24 @@ export CPPFLAGS="-I$PREFIX/include"
 # find our own perl modules
 export PERL5LIB=$PREFIX/lib/perl5
 
+function error() {
+  echo "       *** ERROR ***"
+  if [ ${SOURCEY_VERBOSE:-0} = 0 ]; then
+     tail -n50 $WORK_DIR/sourcey.outcap | perl -pe 's/^/       /';
+  fi
+  exit 1
+}
+
+trap 'error' ERR
+
 function progressor () {
    title=$1
    countdown=${2:-0}
-   echo "       $1"
+   echo "       $title"
    if [ ${SOURCEY_VERBOSE:-0} = 1 ]; then
       cat
    else
-       tee outcap.$$ | perl -e 'my $start=time;my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){$d += $inc; if (time - $start > 5){ $start=time; print "          $d lines ".($inc < 0 ? "to go" : "...")."\n"}} print "          $d lines total\n" if $inc > 0'
-       if test ${PIPESTATUS[0]} -eq 1; then
-           echo "### Problem ###"
-           cat outcap.$$
-           exit 1
-       fi
-       rm outcap.$$
+       tee $WORK_DIR/sourcey.outcap | perl -e 'my $start=time;my $d='${countdown}'; my $inc = $d ? -1 : 1; $|=1;while (<>){$d += $inc; if (time - $start > 5){ $start=time; print "          $d lines ".($inc < 0 ? "to go" : "...")."\n"}} print "          $d lines total\n" if $inc > 0'
    fi
 }
 
