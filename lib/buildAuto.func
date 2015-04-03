@@ -8,6 +8,8 @@ function buildAuto () {
        ;;
        *.xz*) DCOMP=xz
        ;;
+       *.bz2*) DCOMP=bzip2
+       ;;
        *) echo NO decompressor for $URL; exit 1
        ;;
    esac
