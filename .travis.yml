@@ -1,2 +1,4 @@
+language: c
+
 script:
   - ./bin/compile `pwd`/example /tmp/cache
