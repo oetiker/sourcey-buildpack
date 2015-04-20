@@ -3,14 +3,14 @@
 [![Build Status](https://travis-ci.org/oetiker/sourcey-buildpack.svg)](https://travis-ci.org/oetiker/sourcey-buildpack)
 
 Isn't it simply amazing to see these demos, where they throw a bunch of php,
-ruby, java or python code at a Cloud Foundry site and it gets magically
+ruby, Java or python code at a Cloud Foundry site and it gets magically
 turned into a running web applications.  Alas for me, life is often a wee
 bit more complicated than that.  My projects always seem to required a few
 extra libraries or they are even written in an dead scripting language like
 Perl.
 
 That's where `sourcey-buildpack` comes in. It allows you to easily compile
-any libraries and binaries from source.  It takes care of putting everyting
+any libraries and binaries from source.  It takes care of putting everything
 into the right spot so that the end result happily lives in
 `/home/vcap/sourcey` and it even knows that it does, and therefore does not
 require any `LD_LIBRARY_PATH` or other special magic to make it work.
@@ -25,7 +25,7 @@ The sourcey-buildpack expects to find three special files in your application di
 
 ## The `SourceyBuild.sh` script
 
-In this script you build your thirdparty software. At the most basic level,
+In this script you build your third-party software. At the most basic level,
 you just have to make sure to install the result into `$PREFIX`.
 
 You may want to use `$WORK_DIR` to unpack your source. And if you need other
@@ -78,10 +78,10 @@ your binaries into that location, their world view will be intact at runtime as 
 The `/tmp/stage` directory gets packaged up and transfered to the run-time
 environment.  At first only your application will be sitting there (in the
 `/tmp/stage/app` directory).
- 
+
 The content of the `/tmp/cache` directory will made available whenever you
 push your application again.  Sourcey uses this location to cache compiled
-binaries and restore them when you push an update without changeing the
+binaries and restore them when you push an update without changing the
 `SourceyBuild.sh` file.
 
 ### Helpers
@@ -90,7 +90,7 @@ To make life a bit simpler still, Sourcey provides a few of helper functions:
 
 #### `buildAuto <url> [options]`
 
-Does essentially the same build proces as described in the example above. If you
+Does essentially the same build process as described in the example above. If you
 want to specify extra configure options, just add them as extra arguments at
 the end of the function call:
 
@@ -100,8 +100,8 @@ buildAuto http://mysite/tool.tar.gz --default-answer=42 --switch-off
 
 #### `buildPerl <version>`
 
-Is the most important function of them all. It creates the perl of your
-choice.  Can't write a decent web application without perl, mojolicious or
+Is the most important function of them all. It creates the Perl of your
+choice.  Can't write a decent web application without Perl, Mojolicious or
 dancer.
 
 Since most Cloud Foundry setups are on Ubuntu lucid (10.04) stacks, perl is
@@ -115,8 +115,8 @@ buildPerl 5.20.2
 #### `buildPerlModule [any cpanm option]`
 
 This is a wrapper for `cpanm` which you can use to install extra perl modules.
-The new modules will get installed into your freshly installed perl,
-or if you have not done so, the system perl will be used and the modules
+The new modules will get installed into your freshly installed Perl,
+or if you have not done so, the system Perl will be used and the modules
 will go to `/home/vcap/sourcey/lib/perl5`.  Sourcey will take care of
 setting the `PERL5LIB` variable accordingly.
 
@@ -132,7 +132,7 @@ an update for your application, this script will run again.
 This one gets executed when your application should be started. Sourcey will
 take care of setting the `$PATH` variable so that all these shiny new 3rd
 party tools get found automatically.  If you have not setup your own copy of
-perl, the `$PERL5LIB` path will be set, so that the system perl finds any
+Perl, the `$PERL5LIB` path will be set, so that the system Perl finds any
 new modules you may have compiled.
 
 At the end of your `SourceyStart.sh` someone should be listening port
@@ -148,12 +148,12 @@ The directory layout at runtime.
 /home
    /vcap
       /app  (aka $HOME !!!)
-      /sourcey 
+      /sourcey
 ```
 
 ## Debugging
 
-If things are not going according to plan. You can put the folling variables
+If things are not going according to plan. You can put the following variables
 into your `SourceyBuild.sh` file.
 
 `SOURCEY_VERBOSE=1` will cause all output generated at build time to be sent
@@ -167,7 +167,7 @@ in fact the compile script runs `grep` on your `SourceyBuild.sh` to detect it.
 The code in the example directory demonstrates how to setup a simple
 Mojolicious Perl app.
 
-The following instructions assume you have already setup a cloudfoundry
+The following instructions assume you have already setup a Cloud Foundry
 account and you have logged yourself in with `cf login`
 
 ```sh
