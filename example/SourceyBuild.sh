@@ -10,8 +10,10 @@ buildPerl 5.20.2
 # and this one is entirely unrelated, and just here
 # to show how to build a library. we do not actually need
 # it for the example code in app-simple.pl to work
-buildAuto https://ftp.postgresql.org/pub/source/v9.4.1/postgresql-9.4.1.tar.bz2
+#buildAuto https://ftp.postgresql.org/pub/source/v9.4.1/postgresql-9.4.1.tar.bz2
+buildAuto
 
 # build the Mojolicious perl module
 # this calles cpanm internally ... 
-buildPerlModule Mojolicious Mojo::Pg
+#buildPerlModule Mojolicious Mojo::Pg
+buildPerlModule Mojolicious
