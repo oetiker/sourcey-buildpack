@@ -172,5 +172,5 @@ account and you have logged yourself in with `cf login`
 
 ```sh
 cd example
-cf push $USER-sourcey-demo -b https://github.com/oetiker/sourcey-buildpack
+cf push
 ```
