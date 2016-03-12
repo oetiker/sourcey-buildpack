@@ -5,12 +5,12 @@
 #SOURCEY_REBUILD=1
 
 # create a copy of perl
-buildPerl 5.22.2
+buildPerl 5.22.1
 
 # and this one is entirely unrelated, and just here
 # to show how to build a library. we do not actually need
 # it for the example code in app-simple.pl to work
-buildAuto https://ftp.postgresql.org/pub/source/v9.4.1/postgresql-9.4.1.tar.bz2
+buildAuto https://ftp.postgresql.org/pub/source/v9.5.1/postgresql-9.5.1.tar.bz2
 
 # build the Mojolicious perl module
 # this calles cpanm internally ... 
