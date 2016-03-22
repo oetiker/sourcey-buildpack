@@ -13,7 +13,8 @@ set -o errtrace
 SOURCEY=sourcey
 BUILD_DIR=$1
 CACHE_DIR=$2
-PREFIX=$HOME/app/$SOURCEY
+APP_DIR=$(basename $BUILD_DIR)
+PREFIX=$HOME/$APP_DIR/$SOURCEY
 START_DIR=`pwd`
 BUILDPACK_DIR=$(dirname `dirname $0`)
 
@@ -39,6 +40,7 @@ if [ -f $SB ]; then
       echo "       Environment"
       echo "       -  WORK_DIR=$WORK_DIR"
       echo "       -  BUILD_DIR=$BUILD_DIR"
+      echo "       -  APP_DIR=$APP_DIR"
       echo "       -  PREFIX=$PREFIX"
       echo "       -  CACHE_DIR=$CACHE_DIR"
        
