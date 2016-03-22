@@ -61,7 +61,7 @@ The directory layout at build time:
 /home
    /vcap (aka $HOME)
       /app
-	/sourcey (aka $PREFIX)
+          /sourcey (aka $PREFIX)
 
 /tmp
    /sourcey.$$ (aka $WORK_DIR)
