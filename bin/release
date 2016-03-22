@@ -5,12 +5,12 @@ BUILD_DIR=$1
 SOURCEY=sourcey
 # Don't be fooled by the examples. The config_vars key gets ignored on cloudfoundry.
 # It was just added to create a semblance of heroku compatibility
-P5L=
-if [ ! -f $BUILD_DIR/../$SOURCEY/bin/perl ]; then
-   P5L=' PERL5LIB=$HOME/../'$SOURCEY'/lib/perl5'
+P5L=''
+if [ ! -f $BUILD_DIR/$SOURCEY/bin/perl ]; then
+   P5L=" PERL5LIB='$HOME/${SOURCEY}/lib/perl5"
 fi
 cat <<YAML
 ---
 default_process_types:
-    web: PATH=\$HOME/../$SOURCEY/bin:\$PATH$P5L ./SourceyStart.sh
+    web: PATH=\$HOME/${SOURCEY}/bin:\$PATH${P5L} ./SourceyStart.sh
 YAML

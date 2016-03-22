@@ -60,22 +60,21 @@ The directory layout at build time:
 ```
 /home
    /vcap (aka $HOME)
-      /sourcey (aka $PREFIX)
+      /app
+	/sourcey (aka $PREFIX)
 
 /tmp
    /sourcey.$$ (aka $WORK_DIR)
    /cache (aka $CACHE_DIR)
-
-/tmp
-   /stage (aka $STAGE_DIR)
+   /stage
       /app (aka $BUILD_DIR)
-      /sourcey
+          /sourcey
 ```
 
-The `/home/vcap` directory is where your application will reside at runtime. By compiling
+The `/home/vcap/app` directory is where your application will reside at runtime. By compiling
 your binaries into that location, their world view will be intact at runtime as well.
 
-The `/tmp/stage` directory gets packaged up and transfered to the run-time
+The `/tmp/stage/app` directory gets packaged up and transfered to the run-time
 environment.  At first only your application will be sitting there (in the
 `/tmp/stage/app` directory).
 
@@ -147,7 +146,7 @@ The directory layout at runtime.
 /home
    /vcap
       /app  (aka $HOME !!!)
-      /sourcey
+         /sourcey
 ```
 
 ## Debugging
