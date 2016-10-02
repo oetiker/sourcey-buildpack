@@ -2,9 +2,6 @@
 # Some helpful function for the compile call
 #
 
-SOURCEY=sourcey
-# where we build stuff
-PREFIX=$HOME/$SOURCEY
 # make sure we find anything we preinstall
 export PATH=$PREFIX/bin:$PATH
 # tell pkg-config where to look for *.pc files
