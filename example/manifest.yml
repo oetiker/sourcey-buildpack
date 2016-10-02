@@ -1,0 +1,7 @@
+---
+applications:
+- name: perl-example
+buildpack: https://github.com/oetiker/sourcey-buildpack
+instances: 1
+memory: 256M
+random-route: true
