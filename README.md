@@ -164,13 +164,13 @@ every time you push a new version.
 ## Example
 
 The code in the example directory demonstrates how to setup a simple
-Mojolicious Perl app.
+some simple apps.
 
 The following instructions assume you have already setup a Cloud Foundry
 account and you have logged yourself in with `cf login`. Make sure to modify
 the `manifest.yml` file in the example directory to suit your needs.
 
 ```sh
-cd example
+cd example/EXAMPLE-OF-YOUR-CHOICE
 cf push
 ```
