@@ -1,4 +1,4 @@
 language: c
 
 script:
-  - ./bin/compile `pwd`/example /tmp/cache
+  - ./bin/compile `pwd`/example/perl-mojolicious /tmp/cache
