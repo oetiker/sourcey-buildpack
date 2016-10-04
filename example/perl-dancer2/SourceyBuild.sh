@@ -12,7 +12,6 @@ buildPerl 5.24.0
 # it for the example code in app-simple.pl to work
 #buildAuto https://ftp.postgresql.org/pub/source/v9.5.1/postgresql-9.5.1.tar.bz2
 
-# build the Mojolicious perl module
+# build the Dacner2 perl module
 # this calles cpanm internally ... 
-#buildPerlModule Mojolicious Mojo::Pg
 buildPerlModule Dancer2
