@@ -18,7 +18,7 @@ PREFIX=$HOME/$APP_DIR/$SOURCEY
 START_DIR=`pwd`
 BUILDPACK_DIR=$(dirname `dirname $0`)
 
-WORK_DIR=/tmp/$SOURCEY.$$
+WORK_DIR=$HOME/tmp/$SOURCEY.$$
 mkdir -p $WORK_DIR
 
 source $BUILDPACK_DIR/lib/SourceyBuildLib.inc
