@@ -6,8 +6,8 @@ Isn't it simply amazing to see these demos, where they throw a bunch of php,
 ruby, Java or python code at a Cloud Foundry site and it gets magically
 turned into a running web applications.  Alas for me, life is often a wee
 bit more complicated than that.  My projects always seem to required a few
-extra libraries or they are even written in an dead scripting language like
-Perl.
+extra libraries or they are written in a language that doesn't have a specific
+buildpack.
 
 That's where `sourcey-buildpack` comes in. It allows you to easily compile
 any libraries and binaries from source.  It takes care of putting everything
